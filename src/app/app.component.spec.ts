@@ -128,7 +128,7 @@ describe('AppComponent', () => {
     app.bereken();
     app.clear();
     expect(app.uitkomst).toBeNull();
-    expect(app.selectedNummerDisplay).toBeNull();
+    expect(app.selectedNummer).toBeNull();
     expect(app.selectedOperand).toBeNull();
   });
 });

@@ -8,9 +8,9 @@ import {Component} from '@angular/core';
 export class AppComponent {
 
   operandMap: Map<string, any | number>;
-  nummerArrays: number[] = [];
+  numberStorage: number[] = [];
   aangeklikteNummers: number[] =  [];
-  selectedNummerDisplay: number;
+  selectedNummer: number;
   selectedOperand: string;
   uitkomst: number;
 
@@ -25,36 +25,43 @@ export class AppComponent {
 
   addNummer(nummer: number) {
     this.aangeklikteNummers.push(nummer);
-    this.selectedNummerDisplay = parseInt(this.aangeklikteNummers.join(''));
+    this.selectedNummer = parseInt(this.aangeklikteNummers.join(''));
   }
 
   setOperand(operand: string) {
-    if (this.selectedOperand && this.selectedOperand !== operand) {
-      this.bereken();
+    if (this.operandIsSelected(operand)) {
       this.selectedOperand = operand;
+      this.bereken();
     } else {
-      this.selectedOperand = operand;
       this.bereken();
+      this.selectedOperand = operand;
     }
     this.aangeklikteNummers = [];
-    this.selectedNummerDisplay = null;
+    this.selectedNummer = null;
   }
 
   bereken() {
-    if (this.aangeklikteNummers.length > 0) {
-      this.nummerArrays.push(this.selectedNummerDisplay);
-      const operandFunction = this.operandMap.get(this.selectedOperand);
-      this.uitkomst = this.nummerArrays.reduce(operandFunction);
-      this.nummerArrays = [];
-      this.nummerArrays.push(this.uitkomst);
+    if (this.numberHasBeenSelected()) {
+      this.numberStorage.push(this.selectedNummer);
+      this.uitkomst = this.numberStorage.reduce(this.operandMap.get(this.selectedOperand));
+      this.numberStorage = [];
+      this.numberStorage.push(this.uitkomst);
     }
   }
 
   clear() {
-    this.nummerArrays = [];
-    this.selectedNummerDisplay = null;
+    this.numberStorage = [];
+    this.selectedNummer = null;
     this.uitkomst = null;
     this.aangeklikteNummers = [];
     this.selectedOperand = null;
+  }
+
+  private numberHasBeenSelected() {
+    return this.aangeklikteNummers.length > 0;
+  }
+
+  private operandIsSelected(operand: string) {
+    return !this.selectedOperand || this.selectedOperand === operand;
   }
 }
