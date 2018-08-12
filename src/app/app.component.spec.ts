@@ -23,7 +23,7 @@ describe('AppComponent', () => {
     app.addNummer(8);
     app.addNummer(3);
     app.addNummer(5);
-    expect(app.aangeklikteNummers).toEqual([8, 3, 5]);
+    expect(app.clickedNummers).toEqual([8, 3, 5]);
   });
 
   it('should add numbers', () => {
@@ -34,7 +34,7 @@ describe('AppComponent', () => {
     app.setOperand('+');
     app.addNummer(2);
     app.bereken();
-    expect(app.uitkomst).toEqual(837);
+    expect(app.result).toEqual(837);
   });
 
   it('should subtract numbers', () => {
@@ -45,7 +45,7 @@ describe('AppComponent', () => {
     app.setOperand('-');
     app.addNummer(2);
     app.bereken();
-    expect(app.uitkomst).toEqual(220);
+    expect(app.result).toEqual(220);
   });
 
   it('should multiply numbers', () => {
@@ -54,7 +54,7 @@ describe('AppComponent', () => {
     app.setOperand('*');
     app.addNummer(9);
     app.bereken();
-    expect(app.uitkomst).toEqual(81);
+    expect(app.result).toEqual(81);
   });
 
   it('should divise numbers', () => {
@@ -63,7 +63,7 @@ describe('AppComponent', () => {
     app.setOperand('/');
     app.addNummer(3);
     app.bereken();
-    expect(app.uitkomst).toEqual(3);
+    expect(app.result).toEqual(3);
   });
 
   it('should add consecutive numbers', () => {
@@ -72,10 +72,10 @@ describe('AppComponent', () => {
     app.setOperand('+');
     app.addNummer(3);
     app.setOperand('+');
-    expect(app.uitkomst).toEqual(12);
+    expect(app.result).toEqual(12);
     app.addNummer(4);
     app.bereken();
-    expect(app.uitkomst).toEqual(16);
+    expect(app.result).toEqual(16);
   });
 
   it('should do consecutive operations multiply edition', () => {
@@ -84,10 +84,10 @@ describe('AppComponent', () => {
     app.setOperand('+');
     app.addNummer(3);
     app.setOperand('*');
-    expect(app.uitkomst).toEqual(12);
+    expect(app.result).toEqual(12);
     app.addNummer(4);
     app.bereken();
-    expect(app.uitkomst).toEqual(48);
+    expect(app.result).toEqual(48);
   });
 
   it('should do consecutive operations division edition', () => {
@@ -96,10 +96,10 @@ describe('AppComponent', () => {
     app.setOperand('-');
     app.addNummer(3);
     app.setOperand('/');
-    expect(app.uitkomst).toEqual(6);
+    expect(app.result).toEqual(6);
     app.addNummer(4);
     app.bereken();
-    expect(app.uitkomst).toEqual(1.5);
+    expect(app.result).toEqual(1.5);
   });
 
   it('should do consecutive operations long edition', () => {
@@ -108,16 +108,16 @@ describe('AppComponent', () => {
     app.setOperand('+');
     app.addNummer(3);
     app.setOperand('/');
-    expect(app.uitkomst).toEqual(12);
+    expect(app.result).toEqual(12);
     app.addNummer(4);
     app.setOperand('*');
-    expect(app.uitkomst).toEqual(3);
+    expect(app.result).toEqual(3);
     app.addNummer(10);
     app.setOperand('-');
-    expect(app.uitkomst).toEqual(30);
+    expect(app.result).toEqual(30);
     app.addNummer(5);
     app.bereken();
-    expect(app.uitkomst).toEqual(25);
+    expect(app.result).toEqual(25);
   });
 
   it('should clear when clearbutton is pressed', () => {
@@ -127,7 +127,7 @@ describe('AppComponent', () => {
     app.addNummer(3);
     app.bereken();
     app.clear();
-    expect(app.uitkomst).toBeNull();
+    expect(app.result).toBeNull();
     expect(app.selectedNummer).toBeNull();
     expect(app.selectedOperand).toBeNull();
   });

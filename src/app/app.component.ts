@@ -8,11 +8,11 @@ import {Component} from '@angular/core';
 export class AppComponent {
 
   operandMap: Map<string, any | number>;
-  numberStorage: number[] = [];
-  aangeklikteNummers: number[] =  [];
+  nummerStorage: number[] = [];
+  clickedNummers: number[] =  [];
   selectedNummer: number;
   selectedOperand: string;
-  uitkomst: number;
+  result: number;
 
   constructor() {
     const map = new Map();
@@ -24,8 +24,8 @@ export class AppComponent {
   }
 
   addNummer(nummer: number) {
-    this.aangeklikteNummers.push(nummer);
-    this.selectedNummer = parseInt(this.aangeklikteNummers.join(''));
+    this.clickedNummers.push(nummer);
+    this.selectedNummer = parseInt(this.clickedNummers.join(''));
   }
 
   setOperand(operand: string) {
@@ -36,29 +36,29 @@ export class AppComponent {
       this.bereken();
       this.selectedOperand = operand;
     }
-    this.aangeklikteNummers = [];
+    this.clickedNummers = [];
     this.selectedNummer = null;
   }
 
   bereken() {
     if (this.numberHasBeenSelected()) {
-      this.numberStorage.push(this.selectedNummer);
-      this.uitkomst = this.numberStorage.reduce(this.operandMap.get(this.selectedOperand));
-      this.numberStorage = [];
-      this.numberStorage.push(this.uitkomst);
+      this.nummerStorage.push(this.selectedNummer);
+      this.result = this.nummerStorage.reduce(this.operandMap.get(this.selectedOperand));
+      this.nummerStorage = [];
+      this.nummerStorage.push(this.result);
     }
   }
 
   clear() {
-    this.numberStorage = [];
+    this.nummerStorage = [];
     this.selectedNummer = null;
-    this.uitkomst = null;
-    this.aangeklikteNummers = [];
+    this.result = null;
+    this.clickedNummers = [];
     this.selectedOperand = null;
   }
 
   private numberHasBeenSelected() {
-    return this.aangeklikteNummers.length > 0;
+    return this.clickedNummers.length > 0;
   }
 
   private operandIsSelected(operand: string) {
