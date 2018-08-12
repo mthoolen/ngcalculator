@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +6,53 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ngcalculator';
+
+  operandMap: Map<string, any | number>;
+  nummerArrays: number[] = [];
+  aangeklikteNummers: number[] =  [];
+  selectedNummerDisplay: string;
+  selectedOperand: string;
+  uitkomst: number;
+
+  constructor() {
+    const map = new Map();
+    map.set('+', ((a: number, b: number) => a + b));
+    map.set('-', ((a: number, b: number) => a - b));
+    map.set('*', ((a: number, b: number) => a * b));
+    map.set('/', ((a: number, b: number) => a / b));
+    this.operandMap = map;
+  }
+
+  addNummer(nummer: number) {
+    this.aangeklikteNummers.push(nummer);
+    this.selectedNummerDisplay = this.aangeklikteNummers.join('');
+  }
+
+  setOperand(operand: string) {
+    if (this.selectedOperand && this.selectedOperand !== operand) {
+      this.bereken();
+      this.selectedOperand = operand;
+    } else {
+      this.selectedOperand = operand;
+      this.bereken();
+    }
+    this.aangeklikteNummers = [];
+    this.selectedNummerDisplay = '';
+  }
+
+  bereken() {
+    this.nummerArrays.push(parseInt(this.selectedNummerDisplay));
+    const operandFunction = this.operandMap.get(this.selectedOperand);
+    this.uitkomst = this.nummerArrays.reduce(operandFunction);
+    this.nummerArrays = [];
+    this.nummerArrays.push(this.uitkomst);
+  }
+
+  clear() {
+    this.nummerArrays = [];
+    this.selectedNummerDisplay = null;
+    this.uitkomst = null;
+    this.aangeklikteNummers = [];
+    this.selectedOperand = '';
+  }
 }
