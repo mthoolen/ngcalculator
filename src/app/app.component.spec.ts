@@ -119,4 +119,16 @@ describe('AppComponent', () => {
     app.bereken();
     expect(app.uitkomst).toEqual(25);
   });
+
+  it('should clear when clearbutton is pressed', () => {
+    const app = new AppComponent();
+    app.addNummer(9);
+    app.setOperand('+');
+    app.addNummer(3);
+    app.bereken();
+    app.clear();
+    expect(app.uitkomst).toBeNull();
+    expect(app.selectedNummerDisplay).toBeNull();
+    expect(app.selectedOperand).toBeNull();
+  });
 });

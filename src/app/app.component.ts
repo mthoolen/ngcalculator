@@ -10,7 +10,7 @@ export class AppComponent {
   operandMap: Map<string, any | number>;
   nummerArrays: number[] = [];
   aangeklikteNummers: number[] =  [];
-  selectedNummerDisplay: string;
+  selectedNummerDisplay: number;
   selectedOperand: string;
   uitkomst: number;
 
@@ -25,7 +25,7 @@ export class AppComponent {
 
   addNummer(nummer: number) {
     this.aangeklikteNummers.push(nummer);
-    this.selectedNummerDisplay = this.aangeklikteNummers.join('');
+    this.selectedNummerDisplay = parseInt(this.aangeklikteNummers.join(''));
   }
 
   setOperand(operand: string) {
@@ -37,15 +37,17 @@ export class AppComponent {
       this.bereken();
     }
     this.aangeklikteNummers = [];
-    this.selectedNummerDisplay = '';
+    this.selectedNummerDisplay = null;
   }
 
   bereken() {
-    this.nummerArrays.push(parseInt(this.selectedNummerDisplay));
-    const operandFunction = this.operandMap.get(this.selectedOperand);
-    this.uitkomst = this.nummerArrays.reduce(operandFunction);
-    this.nummerArrays = [];
-    this.nummerArrays.push(this.uitkomst);
+    if (this.aangeklikteNummers.length > 0) {
+      this.nummerArrays.push(this.selectedNummerDisplay);
+      const operandFunction = this.operandMap.get(this.selectedOperand);
+      this.uitkomst = this.nummerArrays.reduce(operandFunction);
+      this.nummerArrays = [];
+      this.nummerArrays.push(this.uitkomst);
+    }
   }
 
   clear() {
@@ -53,6 +55,6 @@ export class AppComponent {
     this.selectedNummerDisplay = null;
     this.uitkomst = null;
     this.aangeklikteNummers = [];
-    this.selectedOperand = '';
+    this.selectedOperand = null;
   }
 }
